@@ -1,4 +1,4 @@
-import { getGroqChatCompletion } from "../services/groqResponse.service.js";
+import { getGroqChatCompletion } from "../groq-service/groqResponse.groq-service.js";
 
 export const extractSkills = async (req, res) => {
     try {
