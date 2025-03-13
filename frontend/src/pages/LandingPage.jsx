@@ -4,6 +4,7 @@ import HeroSection from '../components/Landing/HeroSection'
 // import MoreInfo from '../components/Landing/MoreInfo'
 import Technology from '../components/Landing/Technology'
 import Features from '../components/Landing/Features'
+import HowItWorks from '../components/Landing/HowItWorks'
 
 const LandingPage = () => {
   return (
@@ -11,9 +12,9 @@ const LandingPage = () => {
     // style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}
     >
         <Navbar/>
-        {/* <hr /> */}
         <HeroSection/>
         <Features/>
+        <HowItWorks/>
         <Technology/>
     </div>
   )

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FileText, Menu, X } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -21,16 +22,17 @@ const Navbar = () => {
 
   return (
     <header 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out min-h-16 flex justify-center ${
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out min-h-16 flex justify-center md:px-24 ${
         scrolled 
-          ? 'py-5 bg-white/90 backdrop-blur-md shadow-md' 
+          ? 'py-5 bg-white' 
           : 'py-8 bg-transparent'
       }`}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <div className="flex items-center">
           <FileText className="h-8 w-8 text-blue-600 mr-2" />
-          <span className="text-xl font-bold tracking-tight text-gray-800">Resume<span className="text-blue-600">Scan</span></span>
+          <Link to='/'><span className="text-xl font-bold tracking-tight text-gray-800">Resume<span className="text-blue-600">Scan</span></span></Link>
+          
         </div>
         
         <nav className="hidden md:flex items-center space-x-8">
@@ -40,21 +42,20 @@ const Navbar = () => {
           <a href="#how-it-works" className="text-md font-medium text-gray-700 hover:text-blue-600 transition-colors">
             How It Works
           </a>
-          <a href="#testimonials" className="text-md font-medium text-gray-700 hover:text-blue-600 transition-colors">
-            Testimonials
+          <a href="#technology" className="text-md font-medium text-gray-700 hover:text-blue-600 transition-colors">
+            Technology
           </a>
-          <a href="#pricing" className="text-md font-medium text-gray-700 hover:text-blue-600 transition-colors">
-            Pricing
-          </a>
+          <Link to='/faq' className="text-md font-medium text-gray-700 hover:text-blue-600 transition-colors">
+            FAQ
+          </Link>
         </nav>
         
         <div className="hidden md:flex items-center space-x-4">
-          <button className="text-md font-medium text-gray-700 hover:text-blue-600 px-4 py-2 rounded-md transition-colors">
-            Sign In
-          </button>
+        <Link to='/screen'>
           <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md font-medium text-md transition-colors shadow-sm">
             Get Started
           </button>
+          </Link>
         </div>
         
         <button 
@@ -68,11 +69,11 @@ const Navbar = () => {
       
       {/* Mobile menu */}
       <div 
-        className={`fixed inset-0 top-16 bg-white z-40 transform transition-transform duration-300 ease-in-out md:hidden ${
+        className={`absolute inset-0 top-[4.45rem] bg-white z-40 transform transition-transform duration-300 ease-in-out md:hidden  ${
           mobileMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="container mx-auto px-4 py-8 flex flex-col gap-6">
+        <div className="container mx-auto px-4 py-10 flex flex-col gap-6 bg-white min-h-screen">
           <a 
             href="#features" 
             className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
@@ -88,26 +89,18 @@ const Navbar = () => {
             How It Works
           </a>
           <a 
-            href="#testimonials" 
-            className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Testimonials
-          </a>
-          <a 
             href="#pricing" 
             className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
-            Pricing
+            Technology
           </a>
           <div className="flex flex-col gap-3 mt-4">
-            <button className="w-full justify-center py-2 px-4 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors font-medium">
-              Sign In
-            </button>
+          <Link to='/screen'>
             <button className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md font-medium transition-colors shadow-sm">
               Get Started
             </button>
+            </Link>
           </div>
         </div>
       </div>

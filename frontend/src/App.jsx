@@ -15,8 +15,8 @@ function App() {
         <Routes>
           <Route exact path="/" element={<LandingPage />} />
           <Route exact path="/faq" element={<FAQ/>} />
-          <Route exact path="/screen" element={<ScreeningPage/>} />
-          <Route exact path="/based-on-job-description" element={<RankPage/>} />
+          <Route exact path="/screen" element={<RankPage/>} />
+          {/* <Route exact path="/based-on-job-description" element={<RankPage/>} /> */}
 
 
           {/* <Route exact path="/help" element={<HelpPage/>} /> */}

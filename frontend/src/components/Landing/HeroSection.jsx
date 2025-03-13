@@ -21,7 +21,7 @@ const HeroSection = () => {
                   Free AI-Powered Resume Screening
                 </span>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight mb-4">
-                  Find the <span className="text-gradient">perfect candidates</span> faster
+                  Find the <span className="text-blue-600">perfect candidates</span> faster
                 </h1>
                 <p className="text-xl text-muted-foreground">
                   Our free AI-powered resume screening solution helps HR teams find the best talent efficiently, saving time and eliminating bias.
@@ -29,8 +29,9 @@ const HeroSection = () => {
               </div>
               
               <div className="flex flex-col sm:flex-row gap-4">
-                <button className=' px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/30 rounded-lg'>Start Now - It's Free</button>
-                <button variant="outline" className="text-lg px-8 py-4 border border-blue-600 text-blue-600 hover:bg-blue-200 rounded-lg">
+                          <Link to='/screen'>
+                <button className=' px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white shadow-lg hover:shadow-blue-500/30 rounded-lg text-lg font-bold'>Start Now - It's Free</button></Link>
+                <button variant="outline" className="text-lg px-8 py-4 border border-blue-200 text-blue-600 hover:bg-blue-200 rounded-lg font-bold">
                   <span className='flex justify-center items-center'> Watch Demo <ChevronRight className="ml-2 h-5 w-5" /> </span> 
                 </button>
 
