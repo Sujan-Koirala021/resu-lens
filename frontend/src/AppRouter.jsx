@@ -23,8 +23,6 @@ function AppRouter() {
                     <Route exact path="/faq" element={<FAQ />} />
                     <Route exact path="/screen" element={<RankPage />} />
                     {/* <Route exact path="/based-on-job-description" element={<RankPage/>} /> */}
-
-
                     {/* <Route exact path="/help" element={<HelpPage/>} /> */}
                 </Routes>
             </Router>

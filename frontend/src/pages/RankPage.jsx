@@ -19,12 +19,23 @@ export default function RankPage() {
     const [results, setResults] = useState([]);
     const [method, setMethod] = useState('ner');
     const [loading, setLoading] = useState(false);
-    const flags = useFlags(['gemini_skill_extraction']);
+    const flags = useFlags(['gemini_skill_extraction','max_resume_no']);
+
+    const [fileError, setFileError] = useState("");
     const isGemini = flags.gemini_skill_extraction.enabled;
+    const MAX_FILES = flags.max_resume_no.value;
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        setSelectedFiles(files.filter(file => file.type === 'application/pdf'));
+        const pdfFiles = files.filter(file => file.type === 'application/pdf');
+
+        if (selectedFiles.length + pdfFiles.length > MAX_FILES) {
+            setFileError(`Maximum ${MAX_FILES} PDF files allowed`);
+            return;
+        }
+
+        setFileError("");
+        setSelectedFiles([...selectedFiles, ...pdfFiles]);
     };
 
     const handleSkillAdd = () => {
@@ -258,13 +269,19 @@ export default function RankPage() {
                             <label htmlFor="fileUpload" className='p-4 rounded-none bg-white font-bold uppercase cursor-pointer'>
                                 Choose Files
                             </label>
-                            <div className='text-white'>or drop files here</div>
+                            {/* <div className='text-white'>or drop files here</div> */}
                         </div>
                     </div>
-
+                    {fileError && (
+                        <div className="text-white mt-2 text-center font-semibold bg-red-500 py-2 rounded-lg ">
+                            {fileError}
+                        </div>
+                    )}
                     {selectedFiles.length > 0 && (
                         <div className='p-4 text-black'>
-                            <h2 className='text-2xl mb-4 flex justify-center items-center '>Uploaded Files:</h2>
+                            <h2 className='text-xl mb-2 flex justify-center items-center font-semibold'>
+                                Uploaded Files: ({selectedFiles.length}/{MAX_FILES})
+                            </h2>
                             {selectedFiles.map((file, index) => (
                                 <FileUpload key={index} file={file} />
                             ))}
@@ -286,7 +303,7 @@ export default function RankPage() {
                                 </select>
                             </div>)
                         }
-                        
+
                         <button
                             className="bg-green-500 text-white px-6 py-3 rounded-lg"
                             onClick={handleSubmit}
