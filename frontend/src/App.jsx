@@ -1,28 +1,15 @@
-import { useState } from 'react'
-import LandingPage from './pages/LandingPage'
-import Footer from './components/Footer/Footer'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import FAQ from './pages/FAQPage';
-import ScreeningPage from './pages/ScreeningPage';
-import RankPage from './pages/RankPage';
+import flagsmith from 'flagsmith'
+import { FlagsmithProvider } from 'flagsmith/react'
+import AppRouter from './AppRouter';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <Router>
-        <Routes>
-          <Route exact path="/" element={<LandingPage />} />
-          <Route exact path="/faq" element={<FAQ/>} />
-          <Route exact path="/screen" element={<RankPage/>} />
-          {/* <Route exact path="/based-on-job-description" element={<RankPage/>} /> */}
-
-
-          {/* <Route exact path="/help" element={<HelpPage/>} /> */}
-        </Routes>
-      </Router>
-      <Footer />
+      <FlagsmithProvider options={{
+        environmentID: import.meta.env.VITE_FLAGSMITH_KEY,
+      }} flagsmith={flagsmith}>
+        <AppRouter/>
+      </FlagsmithProvider>
     </>
   )
 }

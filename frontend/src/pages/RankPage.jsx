@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar/Navbar';
 import FileIcon from '../images/fileIcon.png';
 import FileUpload from '../components/Screener/FileUpload';
 import ResumeResultsTable from '../components/Rank/ResumeRankTable';
+import { useFlags } from 'flagsmith/react';
 
 export default function RankPage() {
     const [jobTitle, setJobTitle] = useState('');
@@ -15,8 +16,11 @@ export default function RankPage() {
     const [skillInput, setSkillInput] = useState('');
     const [softskillsInput, setSoftSkillsInput] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState([]);
-    const [results, setResults] = useState([]); 
-    const [loading, setLoading] = useState(false); 
+    const [results, setResults] = useState([]);
+    const [method, setMethod] = useState('ner');
+    const [loading, setLoading] = useState(false);
+    const flags = useFlags(['gemini_skill_extraction']);
+    const isGemini = flags.gemini_skill_extraction.enabled;
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
@@ -57,6 +61,7 @@ export default function RankPage() {
         formData.append('experience', experience);
         formData.append('skills', JSON.stringify(skills));
         formData.append('softSkills', JSON.stringify(softskills));
+        formData.append('method', method);
 
         // Append files to FormData
         selectedFiles.forEach((file) => {
@@ -267,7 +272,21 @@ export default function RankPage() {
                     )}
 
                     {/* Submit Button */}
-                    <div className="flex justify-center m-3">
+                    <div className="flex justify-center m-3 flex-col">
+                        {
+                            isGemini && (<div className="mb-4 ">
+                                <label className="block text-lg font-medium mb-2">Skill Extraction Method</label>
+                                <select
+                                    className="w-full p-2 rounded border border-gray-300"
+                                    value={method}
+                                    onChange={(e) => setMethod(e.target.value)}
+                                >
+                                    <option value="ner">Name Entity Recognition</option>
+                                    <option value="gemini">Gemini</option>
+                                </select>
+                            </div>)
+                        }
+                        
                         <button
                             className="bg-green-500 text-white px-6 py-3 rounded-lg"
                             onClick={handleSubmit}
