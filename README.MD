@@ -80,20 +80,24 @@ npm run dev
 ```
 ## Backend Setup
 ### Navigate to the backend directory:
-
+```bash
+cd ../backend
+```
 ### Create your own .env file under server directory
 
 ```bash
 GROQ_API_KEY=<YOUR_GROQ_API_KEY>
 ```
 
-### Create Virtual Environment
+### Create and Activate  Virtual Environment
 ```bash
 python -m venv env
 ```
 
-### Activate the virtual Environment
-In powershell,
+```bash
+source env/bin/activate
+```
+For windows,
 ```bash
 .\env\Scripts\activate
 ```
