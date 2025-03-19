@@ -4,7 +4,6 @@ import FileIcon from '../images/fileIcon.png';
 import FileUpload from '../components/Screener/FileUpload';
 import ResumeResultsTable from '../components/Rank/ResumeRankTable';
 import { useFlags } from 'flagsmith/react';
-import { Flag } from 'lucide-react';
 
 export default function RankPage() {
     const [jobTitle, setJobTitle] = useState('');
@@ -20,17 +19,28 @@ export default function RankPage() {
     const [results, setResults] = useState([]);
     const [method, setMethod] = useState('ner');
     const [loading, setLoading] = useState(false);
-    const flags = useFlags(['groq_skill_extraction','max_resume_no','sumamry']);
+    const flags = useFlags([
+        'groq_skill_extraction', 
+        'max_resume_no', 
+        'summary',
+        'weight_degree',
+        'weight_major',
+        'weight_experience',
+        'weight_skills',
+        'weight_soft_skills',
+        'weight_similarity'
+    ]);
 
     const [fileError, setFileError] = useState("");
     const isGroq = flags.groq_skill_extraction.enabled;
-    let MAX_FILES;
-    if(flags.max_resume_no.enabled){
-        MAX_FILES = flags.max_resume_no.value;
-    }
-    else{
-        MAX_FILES = 5;
-    }
+    let MAX_FILES = flags.max_resume_no?.enabled ? flags.max_resume_no.value : 5;
+    const degree_weight = flags.weight_degree?.enabled ? JSON.parse(flags.weight_degree.value) : 0.1;
+    const major_weight = flags.weight_major?.enabled ? JSON.parse(flags.weight_major.value) : 0.1;
+    const experience_weight = flags.weight_experience?.enabled ? JSON.parse(flags.weight_experience.value) : 0.15;
+    const skills_weight = flags.weight_skills?.enabled ? JSON.parse(flags.weight_skills.value) : 0.25;
+    const soft_skills_weight = flags.weight_soft_skills?.enabled ? JSON.parse(flags.weight_soft_skills.value) : 0.1;
+    const cosine_similarity_weight = flags.weight_similarity?.enabled ? JSON.parse(flags.weight_similarity.value) : 0.3;
+
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
@@ -81,6 +91,12 @@ export default function RankPage() {
         formData.append('softSkills', JSON.stringify(softskills));
         formData.append('method', method);
 
+        formData.append('degree_weight', degree_weight);
+        formData.append('major_weight', major_weight);
+        formData.append('experience_weight', experience_weight);
+        formData.append('skills_weight', skills_weight);
+        formData.append('soft_skills_weight', soft_skills_weight);
+        formData.append('cosine_similarity_weight', cosine_similarity_weight);
         // Append files to FormData
         selectedFiles.forEach((file) => {
             formData.append('files', file);

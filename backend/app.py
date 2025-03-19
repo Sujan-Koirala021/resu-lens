@@ -16,6 +16,7 @@ from model.softSkillScore import get_soft_skills_score
 from model.degreeScore import calculate_degree_score
 from model.majorScore import get_education_score
 from pydantic import BaseModel
+import os
 # from services.groq_api import get_extracted_skills
 app = FastAPI()
 import pandas as pd
@@ -38,10 +39,6 @@ app.add_middleware(
 UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-
-
-
-
 @app.post("/upload_resume")
 async def upload_resume(
     jobTitle: str = Form(...),
@@ -52,11 +49,21 @@ async def upload_resume(
     skills: str = Form(...),  # Skills will be sent as a JSON string
     softSkills: str = Form(...),
     files: List[UploadFile] = File(...),  # Handling multiple files
-    method: str = Form(...)
+    method: str = Form(...),
+    degree_weight: float = Form(...),
+    major_weight: float = Form(...),
+    experience_weight: float = Form(...),
+    skills_weight: float = Form(...),
+    soft_skills_weight: float = Form(...),
+    cosine_similarity_weight: float = Form(...),
 ):
+    
+    total_weight = degree_weight + major_weight + experience_weight + skills_weight + soft_skills_weight + cosine_similarity_weight
+    print("total_weight",total_weight)
+    # Or, use the value of a feature
     try:
         # Parse the skills string as a JSON array
-        print(method)
+        # print(method)
         skills_list = json.loads(skills)
         soft_skills_list = json.loads(softSkills)
         # major_list = json.loads(major)
@@ -108,8 +115,8 @@ async def upload_resume(
             soft_skill_score_result = get_soft_skills_score(df_resume,{
                 "softSkills": ", ".join(soft_skills_list)  # Convert list of skills to comma-separated string
             })
-            print("skillsssssssssssss",skills_list)
-            print("majorrrrrrrrrrrrrrr",[major]   )
+            # print("skillsssssssssssss",skills_list)
+            # print("majorrrrrrrrrrrrrrr",[major]   )
 
             major_score_result = get_education_score(df_resume,{
                 "education_major": ", ".join([major])  # Convert list of skills to comma-separated string
@@ -130,7 +137,7 @@ async def upload_resume(
             print("Education score: ", major_score_result)
 
             skills_score_result =  float(skills_score_result)*0.8+ float(soft_skill_score_result)*0.2
-            final_score = float(skills_score_result)*0.25+ float(soft_skill_score_result)*0.1+ float(degree_score_result)*0.1 + float(major_score_result)*0.1+ float(score)*0.3+ float(exp_score_result)*0.15
+            final_score = float(skills_score_result)*skills_weight+ float(soft_skill_score_result)*soft_skills_weight+ float(degree_score_result)*degree_weight + float(major_score_result)*major_weight+ float(score)*cosine_similarity_weight+ float(exp_score_result)*experience_weight
             # Add results for this file
             results[file.filename] = {
                 "cosine_similarity_score": float(score),
@@ -151,7 +158,7 @@ async def upload_resume(
                 ),
                 "exp_score":exp_score_result,
                 "info":info,
-                "final_score":final_score,
+                "final_score":final_score / total_weight,
             }
 
         except Exception as e:
