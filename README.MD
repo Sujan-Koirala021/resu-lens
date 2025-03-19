@@ -37,10 +37,75 @@ ResuLens is a sophisticated automated resume screening tool that utilizes artifi
 
 ## Demo
 
-## 🚀 Getting Started  
+## 🚀 Getting Started
 
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
 
+### Prerequisites
 
+Before you begin, ensure you have the following installed:
+
+- [Git](https://git-scm.com/) (to clone the repository)
+- [Node.js](https://nodejs.org/) (for JavaScript runtime, package management, etc.)
+- [npm](https://www.npmjs.com/) or [Yarn](https://yarnpkg.com/) (for managing dependencies)
+
+## Installation
+### Clone the Repository
+
+Start by cloning the repository to your local machine using Git.
+
+```bash
+git clone https://github.com/Sujan-Koirala021/resu-lens.git
+```
+## Frontend Setup
+### Navigate to the frontend directory:
+```bash
+cd frontend
+```
+
+### Create your own .env file under server directory
+
+```bash
+VITE_FLAGSMITH_KEY=<YOUR_FLAGSMITH_API_KEY>
+```
+
+### Install dependencies:
+```bash
+npm install
+```
+
+### Start the development server:
+```bash
+npm run dev
+```
+## Backend Setup
+### Navigate to the backend directory:
+
+### Create your own .env file under server directory
+
+```bash
+GROQ_API_KEY=<YOUR_GROQ_API_KEY>
+```
+
+### Create Virtual Environment
+```bash
+python -m venv env
+```
+
+### Activate the virtual Environment
+In powershell,
+```bash
+.\env\Scripts\activate
+```
+### Install dependencies
+```bash
+pip install -r requirements.txt
+```
+
+### Start the backend server
+```bash
+fastapi dev app.py
+```
 
 
 ## Screenshots
