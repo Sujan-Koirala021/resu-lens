@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'lucide-react';
+import { useFlags } from 'flagsmith/react';
 
 const ResumeResultsTable = ({ results }) => {
+  const flags = useFlags(['groq_skill_extraction', 'max_resume_no', 'summary']);
+
+  const showSummary = flags.summary.enabled;
   const [expandedRows, setExpandedRows] = useState(new Set());
   // console.log(results)
   const toggleRow = (fileName) => {
@@ -22,7 +26,7 @@ const ResumeResultsTable = ({ results }) => {
   });
 
   return (
-    <div className="results-section mt-6 bg-white shadow-lg p-6 rounded-lg mx-24 overflow-x-auto mb-12">
+    <div className="results-section mt-6 bg-white shadow-lg p-6 rounded-lg mx-12 overflow-x-auto mb-12">
       <h2 className="text-2xl font-bold text-center mb-4">Resume Results</h2>
       <table className="w-full min-w-full divide-y divide-gray-200">
         <thead className="bg-gray-50">
@@ -34,7 +38,9 @@ const ResumeResultsTable = ({ results }) => {
             {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Degree Score</th> */}
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Education Score</th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Experience Score</th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            {showSummary && (
+              <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            )}
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
@@ -68,24 +74,26 @@ const ResumeResultsTable = ({ results }) => {
                     </td>
                   </>
                 )}
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  <button
-                    onClick={() => toggleRow(fileName)}
-                    className="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                  >
-                    {expandedRows.has(fileName) ? (
-                      <>
-                        Hide Summary
-                        <ChevronUp className="ml-2 h-4 w-4" />
-                      </>
-                    ) : (
-                      <>
-                        Show Summary
-                        <ChevronDown className="ml-2 h-4 w-4" />
-                      </>
-                    )}
-                  </button>
-                </td>
+                {showSummary && (
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <button
+                      onClick={() => toggleRow(fileName)}
+                      className="inline-flex items-center px-3 py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                    >
+                      {expandedRows.has(fileName) ? (
+                        <>
+                          Hide Summary
+                          <ChevronUp className="ml-2 h-4 w-4" />
+                        </>
+                      ) : (
+                        <>
+                          Show Summary
+                          <ChevronDown className="ml-2 h-4 w-4" />
+                        </>
+                      )}
+                    </button>
+                  </td>
+                )}
               </tr>
               {expandedRows.has(fileName) && !fileData.error && (
                 <tr className="bg-gray-50">

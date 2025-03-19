@@ -23,8 +23,8 @@ const Navbar = ({ showMoreDetails = false }) => {
   return (
     <header
       className={`fixed top-0 w-full z-50 transition-all duration-300 ease-in-out min-h-16 flex justify-center md:px-24 ${scrolled
-          ? 'py-5 bg-white'
-          : 'py-8 bg-transparent'
+        ? 'py-5 bg-white'
+        : 'py-8 bg-transparent'
         }`}
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
@@ -78,28 +78,44 @@ const Navbar = ({ showMoreDetails = false }) => {
           }`}
       >
         <div className="container mx-auto px-4 py-10 flex flex-col gap-6 bg-white min-h-screen">
-          <a
-            href="#features"
+          {showMoreDetails && (
+            <>
+              <a
+                href="#features"
+                className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Features
+              </a>
+              <a
+                href="#how-it-works"
+                className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                How It Works
+              </a>
+              <a
+                href="#technology"
+                className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Technology
+              </a>
+            </>
+          )}
+          <Link to='/faq'
             className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
-            Features
-          </a>
-          <a
-            href="#how-it-works"
+            FAQ
+          </Link>
+          <Link to='/screen'
             className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
             onClick={() => setMobileMenuOpen(false)}
           >
-            How It Works
-          </a>
-          <a
-            href="#pricing"
-            className="text-lg font-medium p-3 hover:bg-blue-50 rounded-lg text-gray-700 hover:text-blue-600 transition-colors"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Technology
-          </a>
-          <div className="flex flex-col gap-3 mt-4">
+            Screen
+          </Link>
+          <div className="flex flex-col gap-3 mt-4 ">
             <Link to='/screen'>
               <button className="w-full justify-center bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md font-medium transition-colors shadow-sm">
                 Get Started

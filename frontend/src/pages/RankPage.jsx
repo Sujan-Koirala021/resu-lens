@@ -4,6 +4,7 @@ import FileIcon from '../images/fileIcon.png';
 import FileUpload from '../components/Screener/FileUpload';
 import ResumeResultsTable from '../components/Rank/ResumeRankTable';
 import { useFlags } from 'flagsmith/react';
+import { Flag } from 'lucide-react';
 
 export default function RankPage() {
     const [jobTitle, setJobTitle] = useState('');
@@ -19,11 +20,17 @@ export default function RankPage() {
     const [results, setResults] = useState([]);
     const [method, setMethod] = useState('ner');
     const [loading, setLoading] = useState(false);
-    const flags = useFlags(['gemini_skill_extraction','max_resume_no']);
+    const flags = useFlags(['groq_skill_extraction','max_resume_no','sumamry']);
 
     const [fileError, setFileError] = useState("");
-    const isGemini = flags.gemini_skill_extraction.enabled;
-    const MAX_FILES = flags.max_resume_no.value;
+    const isGroq = flags.groq_skill_extraction.enabled;
+    let MAX_FILES;
+    if(flags.max_resume_no.enabled){
+        MAX_FILES = flags.max_resume_no.value;
+    }
+    else{
+        MAX_FILES = 5;
+    }
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
@@ -291,7 +298,7 @@ export default function RankPage() {
                     {/* Submit Button */}
                     <div className="flex justify-center m-3 flex-col">
                         {
-                            isGemini && (<div className="mb-4 ">
+                            isGroq && (<div className="mb-4 ">
                                 <label className="block text-lg font-medium mb-2">Skill Extraction Method</label>
                                 <select
                                     className="w-full p-2 rounded border border-gray-300"
@@ -299,7 +306,7 @@ export default function RankPage() {
                                     onChange={(e) => setMethod(e.target.value)}
                                 >
                                     <option value="ner">Name Entity Recognition</option>
-                                    <option value="gemini">Gemini</option>
+                                    <option value="groq">Groq</option>
                                 </select>
                             </div>)
                         }
