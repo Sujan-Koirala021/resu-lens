@@ -15,7 +15,7 @@ export default function FAQ() {
             <div className=" flex-row lg:flex p-8 rounded-lg bg-gray-50 self-center justify-center items-center w-full px-8 md:px-24">
                 {/* Left side image and heading */}
                 <div className="flex-1 mb-8 lg:mb-0 lg:mr-8 p-3 ">
-                    <h2 className="text-4xl font-bold mb-4 pb-4">You{"'"}re probably wondering...</h2>
+                    <h2 className="text-4xl font-bold mb-4 pb-4 mt-24 md:mt-4">You{"'"}re probably wondering...</h2>
                     <img src={faqImage} alt="FAQ illustration" className="rounded-md mt-4" />
                 </div>
 

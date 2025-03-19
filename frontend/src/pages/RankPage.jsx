@@ -4,6 +4,7 @@ import FileIcon from '../images/fileIcon.png';
 import FileUpload from '../components/Screener/FileUpload';
 import ResumeResultsTable from '../components/Rank/ResumeRankTable';
 import { useFlags } from 'flagsmith/react';
+import { Flag } from 'lucide-react';
 
 export default function RankPage() {
     const [jobTitle, setJobTitle] = useState('');
@@ -19,12 +20,29 @@ export default function RankPage() {
     const [results, setResults] = useState([]);
     const [method, setMethod] = useState('ner');
     const [loading, setLoading] = useState(false);
-    const flags = useFlags(['gemini_skill_extraction']);
-    const isGemini = flags.gemini_skill_extraction.enabled;
+    const flags = useFlags(['groq_skill_extraction','max_resume_no','sumamry']);
+
+    const [fileError, setFileError] = useState("");
+    const isGroq = flags.groq_skill_extraction.enabled;
+    let MAX_FILES;
+    if(flags.max_resume_no.enabled){
+        MAX_FILES = flags.max_resume_no.value;
+    }
+    else{
+        MAX_FILES = 5;
+    }
 
     const handleFileChange = (e) => {
         const files = Array.from(e.target.files);
-        setSelectedFiles(files.filter(file => file.type === 'application/pdf'));
+        const pdfFiles = files.filter(file => file.type === 'application/pdf');
+
+        if (selectedFiles.length + pdfFiles.length > MAX_FILES) {
+            setFileError(`Maximum ${MAX_FILES} PDF files allowed`);
+            return;
+        }
+
+        setFileError("");
+        setSelectedFiles([...selectedFiles, ...pdfFiles]);
     };
 
     const handleSkillAdd = () => {
@@ -258,13 +276,19 @@ export default function RankPage() {
                             <label htmlFor="fileUpload" className='p-4 rounded-none bg-white font-bold uppercase cursor-pointer'>
                                 Choose Files
                             </label>
-                            <div className='text-white'>or drop files here</div>
+                            {/* <div className='text-white'>or drop files here</div> */}
                         </div>
                     </div>
-
+                    {fileError && (
+                        <div className="text-white mt-2 text-center font-semibold bg-red-500 py-2 rounded-lg ">
+                            {fileError}
+                        </div>
+                    )}
                     {selectedFiles.length > 0 && (
                         <div className='p-4 text-black'>
-                            <h2 className='text-2xl mb-4 flex justify-center items-center '>Uploaded Files:</h2>
+                            <h2 className='text-xl mb-2 flex justify-center items-center font-semibold'>
+                                Uploaded Files: ({selectedFiles.length}/{MAX_FILES})
+                            </h2>
                             {selectedFiles.map((file, index) => (
                                 <FileUpload key={index} file={file} />
                             ))}
@@ -274,7 +298,7 @@ export default function RankPage() {
                     {/* Submit Button */}
                     <div className="flex justify-center m-3 flex-col">
                         {
-                            isGemini && (<div className="mb-4 ">
+                            isGroq && (<div className="mb-4 ">
                                 <label className="block text-lg font-medium mb-2">Skill Extraction Method</label>
                                 <select
                                     className="w-full p-2 rounded border border-gray-300"
@@ -282,11 +306,11 @@ export default function RankPage() {
                                     onChange={(e) => setMethod(e.target.value)}
                                 >
                                     <option value="ner">Name Entity Recognition</option>
-                                    <option value="gemini">Gemini</option>
+                                    <option value="groq">Groq</option>
                                 </select>
                             </div>)
                         }
-                        
+
                         <button
                             className="bg-green-500 text-white px-6 py-3 rounded-lg"
                             onClick={handleSubmit}

@@ -11,7 +11,7 @@ const LandingPage = () => {
     <div
     // style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}
     >
-        <Navbar/>
+        <Navbar showMoreDetails={true}/>
         <HeroSection/>
         <Features/>
         <HowItWorks/>
