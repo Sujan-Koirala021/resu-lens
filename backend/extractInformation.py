@@ -15,7 +15,7 @@ ruler.from_disk(skill_pattern_path)
 nlp.pipe_names
 import ast
 
-async def get_skills(text):
+async def get_skills_llm(text):
     query = """
     Extract skills from the following resume and return just only list of skills. No other nonsense like "here is your". Strictly a list of skills like ['Python', 'Pytorch']. In case of failure or no skill return []: 
     """
@@ -31,6 +31,16 @@ async def get_skills(text):
     except (ValueError, SyntaxError) as e:
         print(f"Error parsing skills list: {e}")
         return []  # Return an empty list in case of error
+
+def get_skills_ner(text):
+    doc = nlp(text)
+    myset = []
+    subset = []
+    for ent in doc.ents:
+        if ent.label_ == "SKILL":
+            subset.append(ent.text)
+    myset.append(subset)
+    return list(set(subset))
 
 def get_email(text):
     """Extract email addresses using regular expression."""
@@ -106,9 +116,6 @@ def get_major(text):
     myset.append(subset)
     return list(set(subset))
 
-###
-
-
 
 # Load SpaCy model and add the date patterns for experience extraction
 def create_nlp_for_experience():
@@ -145,11 +152,11 @@ def get_experience(text, minExp):
     return experience_years, experience_score
 
 
-
-
-
-async def extractInformation(text, minExp):
-    skills = await get_skills(text)  # Ensure await is used when calling async functions
+async def extractInformation(text, minExp, skillExtractionMethod):
+    if (skillExtractionMethod == 'ner'):
+        skills = get_skills_ner(text)  # Ensure await is used when calling async functions
+    else:
+        skills = await get_skills_llm(text)
     soft_skills = get_soft_skills(text)
     degree = get_degrees(text)
     major = get_major(text)

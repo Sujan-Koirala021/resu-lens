@@ -86,7 +86,7 @@ async def upload_resume(
             score = get_cosine_similarity(jobDescription, text)
 
             # Extract information from the resume
-            info = await extractInformation(text, experience)
+            info = await extractInformation(text, experience, method)
 
             # Convert extracted SKILLS into a format suitable for processing
             df_resume = pd.DataFrame({
