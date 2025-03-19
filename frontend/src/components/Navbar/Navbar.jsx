@@ -30,7 +30,7 @@ const Navbar = ({ showMoreDetails = false }) => {
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <div className="flex items-center">
           <FileText className="h-8 w-8 text-blue-600 mr-2" />
-          <Link to='/'><span className="text-xl font-bold tracking-tight text-gray-800">Resume<span className="text-blue-600">Scan</span></span></Link>
+          <Link to='/'><span className="text-xl font-bold tracking-tight text-gray-800">Resu<span className="text-blue-600">Lens</span></span></Link>
 
         </div>
         <nav className="hidden md:flex items-center space-x-8">
