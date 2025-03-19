@@ -23,17 +23,43 @@
 </p>
 
 
-
 ## Overview
 ResuLens is a sophisticated automated resume screening tool that utilizes artificial intelligence and natural language processing to effectively match resumes with job descriptions. This project is designed to optimize the recruitment process by delivering precise and unbiased resume assessments.
 
+## Problem Statement
+Organizations face significant challenges in the inefficiency and subjectivity of manual re-
+sume screening. Recruiters often struggle to evaluate numerous applications swiftly while
+maintaining fairness and unbiased selection processes. Therefore, there is a need for an au-
+tomated solution that can efficiently screen resumes based on the job requirements, allowing
+recruiters to focus their efforts on engaging with the most suitable candidates
 
 # Dataset 
 
 
 ## ✨ Features  
+- **Advanced NLP Extraction**: Extract key information from resumes including skills, education, experience, soft skills, and personal details
+- **Intuitive  Interface**: Upload multiple resumes and get results in a simple-to-understand tabular format
+- **Job-Resume Matching**: Calculate similarity between job descriptions and resumes using sentence transformers and cosine similarity
+- **Efficient Screening**: Provide unbiased and rapid resume screening with comprehensive scoring
 
+## How It Works
+1. Users fill out a form detailing the job requirements and specifications
+2. Users upload resumes in PDF format for screening
+3. The system processes each resume through Rule-based Named Entity Recognition (NER) or Groq API.
+4. Data is extracted and matched with job specification to calculate component scores
+5. Similarity score is calculated using sentence transformers (all-MiniLM-L12-v2) and cosine similarity
+6. The final weighted score is calculated as:
+   ```
+   final_score = (skills_score * 0.25) + (soft_skill_score * 0.1) + (degree_score * 0.1) + 
+                 (major_score * 0.1) + (resume_similarity_score * 0.3) + (experience_score * 0.15)
+   ```
 
+## Feature Flags with Flagsmith
+Flagsmith is integrated to facilitate flexible system configuration:
+- **Groq API Integration**: Enable/disable the use of Groq API for improved text extraction
+- **Maintenance Mode**: Easily allow system maintenance when needed
+- **Processing Capacity**:  Edit the number of resumes that can be processed by a system at a time
+- **Resume Summary**: Enable/disable the resume summarization feature
 
 ## Demo
 
