@@ -48,11 +48,11 @@ recruiters to focus their efforts on engaging with the most suitable candidates
 3. The system processes each resume through Rule-based Named Entity Recognition (NER) or Groq API.
 4. Data is extracted and matched with job specification to calculate component scores
 5. Similarity score is calculated using sentence transformers (all-MiniLM-L12-v2) and cosine similarity
-6. The final weighted score is calculated as:
+<!-- 6. The final weighted score is calculated as:
    ```
    final_score = (skills_score * 0.25) + (soft_skill_score * 0.1) + (degree_score * 0.1) + 
                  (major_score * 0.1) + (resume_similarity_score * 0.3) + (experience_score * 0.15)
-   ```
+   ``` -->
 
 ## Feature Flags with Flagsmith
 Flagsmith is integrated to facilitate flexible system configuration:
@@ -60,6 +60,7 @@ Flagsmith is integrated to facilitate flexible system configuration:
 - **Maintenance Mode**: Easily allow system maintenance when needed
 - **Processing Capacity**:  Edit the number of resumes that can be processed by a system at a time
 - **Resume Summary**: Enable/disable the resume summarization feature
+- **Score Weights**: Assign weights to different scores to get final weighted score
 
 ## Demo
 
