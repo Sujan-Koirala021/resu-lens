@@ -1,25 +1,36 @@
 import spacy
 import re
+import ast
+
 # from dateutil import parser
 # from dateutil.relativedelta import relativedelta
 from datetime import datetime
 from model.experienceScore import get_experience_score
+from services.groq_api import respond_query
 
 nlp = spacy.load("en_core_web_lg")
 skill_pattern_path = "jz_skill_patterns.jsonl"
 ruler = nlp.add_pipe("entity_ruler", before="ner")
 ruler.from_disk(skill_pattern_path)
 nlp.pipe_names
+import ast
 
-def get_skills(text):
-    doc = nlp(text)
-    myset = []
-    subset = []
-    for ent in doc.ents:
-        if ent.label_ == "SKILL":
-            subset.append(ent.text)
-    myset.append(subset)
-    return list(set(subset))
+async def get_skills(text):
+    query = """
+    Extract skills from the following resume and return just only list of skills. No other nonsense like "here is your". Strictly a list of skills like ['Python', 'Pytorch']. In case of failure or no skill return []: 
+    """
+    
+    # Assuming `respond_query` is an async function that returns a string.
+    extracted_skill_string_LLM = await respond_query(text, query)
+    print(extracted_skill_string_LLM)
+    try:
+        # Attempt to safely evaluate the string as a Python list
+        extracted_skill_list = ast.literal_eval(extracted_skill_string_LLM)
+        print(extracted_skill_list)  # If needed, print the result for debugging
+        return extracted_skill_list
+    except (ValueError, SyntaxError) as e:
+        print(f"Error parsing skills list: {e}")
+        return []  # Return an empty list in case of error
 
 def get_email(text):
     """Extract email addresses using regular expression."""
@@ -137,19 +148,14 @@ def get_experience(text, minExp):
 
 
 
-def extractInformation(text, minExp):
-    skills = get_skills(text)
+async def extractInformation(text, minExp):
+    skills = await get_skills(text)  # Ensure await is used when calling async functions
     soft_skills = get_soft_skills(text)
     degree = get_degrees(text)
     major = get_major(text)
     email = get_email(text)
     phone_no = get_phone_number(text)
-    (experience_years, experience_score) = get_experience(text, minExp)
-    print("Email")
-    print(email)
-    print("Phone number")
-    print(phone_no)
-    # print(year)
+    experience_years, experience_score = get_experience(text, minExp)
     
     # Combine all extracted information into a dictionary
     extracted_info = {
@@ -164,4 +170,3 @@ def extractInformation(text, minExp):
     }
     
     return extracted_info
-

@@ -7,8 +7,7 @@ load_dotenv()
 
 # Initialize Groq client with API key
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
-
-async def get_extracted_skills(resume_text: str):
+async def respond_query(resume_text: str, query):
     try:
         # Send a request to the Groq API to extract skills from resume
         chat_completion = client.chat.completions.create(
@@ -19,7 +18,7 @@ async def get_extracted_skills(resume_text: str):
                 },
                 {
                     "role": "user",
-                    "content": f"Extract skills from the following resume and return just only list of skills. No other nonsense like here is your. Strictly list of skills like ['Python', 'Pytorch'] : {resume_text}",
+                    "content": f"{query}: {resume_text}",
                 }
             ],
             model="llama-3.3-70b-versatile",

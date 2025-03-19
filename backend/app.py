@@ -3,6 +3,7 @@ from fastapi import FastAPI, Form, File, UploadFile
 from typing import List
 import json
 import os
+import numpy
 from fastapi.responses import JSONResponse
 from numpy import ndarray
 from test import get_cosine_similarity  # Assuming this is your similarity function
@@ -15,7 +16,7 @@ from model.softSkillScore import get_soft_skills_score
 from model.degreeScore import calculate_degree_score
 from model.majorScore import get_education_score
 from pydantic import BaseModel
-from services.groq_api import get_extracted_skills
+# from services.groq_api import get_extracted_skills
 app = FastAPI()
 import pandas as pd
 
@@ -38,12 +39,6 @@ UPLOAD_FOLDER = "uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 
-@app.post("/extract_skills")
-async def root(item: Item):
-    # print(item.resume_text)
-    item.extracted_skills = await get_extracted_skills(item.resume_text)
-    print(item.extracted_skills)
-    return item
 
 
 
@@ -57,9 +52,11 @@ async def upload_resume(
     skills: str = Form(...),  # Skills will be sent as a JSON string
     softSkills: str = Form(...),
     files: List[UploadFile] = File(...),  # Handling multiple files
+    method: str = Form(...)
 ):
     try:
         # Parse the skills string as a JSON array
+        print(method)
         skills_list = json.loads(skills)
         soft_skills_list = json.loads(softSkills)
         # major_list = json.loads(major)
@@ -89,7 +86,7 @@ async def upload_resume(
             score = get_cosine_similarity(jobDescription, text)
 
             # Extract information from the resume
-            info = extractInformation(text, experience)
+            info = await extractInformation(text, experience)
 
             # Convert extracted SKILLS into a format suitable for processing
             df_resume = pd.DataFrame({
