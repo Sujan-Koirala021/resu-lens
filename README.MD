@@ -61,6 +61,8 @@ Flagsmith is integrated to facilitate flexible system configuration:
 - **Score Weights**: Assign weights to different scores to get final weighted score
 
 ## Demo
+[![Watch the video](https://github.com/user-attachments/assets/109f460a-b847-40d5-9c95-791b4ec1c2a4)](https://youtu.be/h6oRwida0T0)
+
 
 ## 🚀 Getting Started
 
