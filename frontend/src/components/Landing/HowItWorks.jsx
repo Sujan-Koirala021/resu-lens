@@ -23,7 +23,7 @@ function HowItWorks() {
                         {
                             number: "02",
                             title: "Upload Resumes",
-                            description: "Batch upload resumes in any format. Our system handles PDF, Word, and plain text files with ease."
+                            description: "Batch upload resumes in any format. Our system handles PDF files with ease."
                         },
                         {
                             number: "03",

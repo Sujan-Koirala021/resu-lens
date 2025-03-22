@@ -27,11 +27,9 @@
 ResuLens is a sophisticated automated resume screening tool that utilizes artificial intelligence and natural language processing to effectively match resumes with job descriptions. This project is designed to optimize the recruitment process by delivering precise and unbiased resume assessments.
 
 ## Problem Statement
-Organizations face significant challenges in the inefficiency and subjectivity of manual re-
-sume screening. Recruiters often struggle to evaluate numerous applications swiftly while
-maintaining fairness and unbiased selection processes. Therefore, there is a need for an au-
-tomated solution that can efficiently screen resumes based on the job requirements, allowing
-recruiters to focus their efforts on engaging with the most suitable candidates
+Organizations face significant challenges in the inefficiency and subjectivity of manual resume screening. Recruiters often struggle to evaluate numerous applications swiftly while
+maintaining fairness and unbiased selection processes. Therefore, there is a need for an automated solution that can efficiently screen resumes based on the job requirements, allowing
+recruiters to focus their efforts on engaging with the most suitable candidates.
 
 # Dataset 
 
@@ -137,7 +135,7 @@ pip install -r requirements.txt
 ```bash
 fastapi dev app.py
 ```
-
+*Note: Wait for some time for the model to load in the backend server, i.e., until the* ```Application startup complete``` *message appears.*
 
 ## Screenshots
 
