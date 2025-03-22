@@ -17,9 +17,9 @@
     <a href="https://github.com/Sujan-Koirala021/resu-lens/pulls" target="blank">
         <img src="https://img.shields.io/github/issues-pr/Sujan-Koirala021/resu-lens?style=for-the-badge&logo=appveyor" alt="Open Pull Request"/>
     </a>
-    <a href="https://github.com/Sujan-Koirala021/resu-lens/blob/master/LICENSE" target="blank">
+    <!-- <a href="https://github.com/Sujan-Koirala021/resu-lens/blob/master/LICENSE" target="blank">
         <img src="https://img.shields.io/github/license/Sujan-Koirala021/resu-lens?style=for-the-badge&logo=appveyor" alt="License" />
-    </a>
+    </a> -->
 </p>
 
 
@@ -31,21 +31,60 @@ Organizations face significant challenges in the inefficiency and subjectivity o
 maintaining fairness and unbiased selection processes. Therefore, there is a need for an automated solution that can efficiently screen resumes based on the job requirements, allowing
 recruiters to focus their efforts on engaging with the most suitable candidates.
 
-# Dataset 
+
+## Demo
+[![Watch the video](https://github.com/user-attachments/assets/109f460a-b847-40d5-9c95-791b4ec1c2a4)](https://youtu.be/h6oRwida0T0)
 
 
-## ✨ Features  
-- **Advanced NLP Extraction**: Extract key information from resumes including skills, education, experience, soft skills, and personal details
-- **Intuitive  Interface**: Upload multiple resumes and get results in a simple-to-understand tabular format
-- **Job-Resume Matching**: Calculate similarity between job descriptions and resumes using sentence transformers and cosine similarity
-- **Efficient Screening**: Provide unbiased and rapid resume screening with comprehensive scoring
 
-## How It Works
-1. Users fill out a form detailing the job requirements and specifications
-2. Users upload resumes in PDF format for screening
-3. The system processes each resume through Rule-based Named Entity Recognition (NER) or Groq API.
-4. Data is extracted and matched with job specification to calculate component scores
-5. Similarity score is calculated using sentence transformers (all-MiniLM-L12-v2) and cosine similarity
+## 🚀 What Makes ResuLens Stand Out?  
+
+ResuLens revolutionizes resume screening by integrating **AI-driven intelligence** with a **flexible and efficient system**. Unlike traditional keyword-based filtering, it employs **natural language processing (NLP) and machine learning** to provide **accurate, unbiased, and scalable** resume evaluations.  
+
+### 🔹 **AI-Powered Resume Matching**  
+- Uses **sentence transformers** (`all-MiniLM-L12-v2`) and **cosine similarity** to match resumes with job descriptions beyond keyword-based filtering.  
+- Ensures a **context-aware** evaluation of candidate skills and experiences.  
+
+### 🔹 **Automated NLP-Based Resume Parsing**  
+- Extracts key details using **Rule-based Named Entity Recognition (NER)** and **Groq API** for **faster and more precise** resume processing.  
+- Identifies **skills, education, experience, and soft skills** dynamically.  
+
+### 🔹 **Feature Flags for Customization**  
+- Integrated with **Flagsmith**, allowing real-time toggling of features like **resume summarization, API integration, and processing limits** without redeployment.  
+- Provides **adaptive control** for different screening needs.  
+
+### 🔹 **Bias Reduction & Fair Screening**  
+- Focuses on **skills-based evaluation**, reducing biases associated with manual screening.  
+- Ensures **unbiased ranking** of candidates by analyzing resumes **contextually and systematically**.  
+
+### 🔹 **Efficient & Scalable Processing**  
+- Supports **batch resume uploads** with **automated tabular scoring** for easy interpretation.  
+- Designed to **scale seamlessly** for companies handling high volumes of applications.  
+
+By leveraging **AI, NLP, and configurable feature flags**, ResuLens **enhances accuracy, efficiency, and fairness** in hiring—helping recruiters focus on **the best-fit candidates** faster than ever. 
+
+
+## 🔍 How It Works  
+
+ResuLens simplifies **resume screening** into a **seamless** and **efficient** process:  
+
+🚀 **Step 1:** **Define Job Requirements**  
+→ Fill out a form with **job specifications**, including required skills, experience, and qualifications.  
+
+📂 **Step 2:** **Upload Resumes**  
+→ Upload multiple resumes in **PDF format** for AI-powered screening.  
+
+🤖 **Step 3:** **AI-Powered Processing**  
+→ Each resume is analyzed using **Rule-based Named Entity Recognition (NER)** or **Groq API** for **intelligent data extraction**.  
+
+📊 **Step 4:** **Scoring & Matching**  
+→ Extracted information is matched with the job requirements to **calculate key component scores**.  
+
+🎯 **Step 5:** **Similarity Analysis**  
+→ Uses **sentence transformers** (`all-MiniLM-L12-v2`) and **cosine similarity** to measure **how well a resume aligns** with the job description.  
+
+✨ **Outcome:** A detailed **tabular report** with **clear scoring metrics**, allowing recruiters to **identify top candidates effortlessly!**  
+
 <!-- 6. The final weighted score is calculated as:
    ```
    final_score = (skills_score * 0.25) + (soft_skill_score * 0.1) + (degree_score * 0.1) + 
@@ -59,9 +98,8 @@ Flagsmith is integrated to facilitate flexible system configuration:
 - **Processing Capacity**:  Edit the number of resumes that can be processed by a system at a time
 - **Resume Summary**: Enable/disable the resume summarization feature
 - **Score Weights**: Assign weights to different scores to get final weighted score
-
-## Demo
-[![Watch the video](https://github.com/user-attachments/assets/109f460a-b847-40d5-9c95-791b4ec1c2a4)](https://youtu.be/h6oRwida0T0)
+<br/>
+![Image](https://github.com/user-attachments/assets/2f48db57-ed28-415e-a0e4-c11183feea17)
 
 
 ## 🚀 Getting Started
@@ -140,7 +178,15 @@ fastapi dev app.py
 *Note: Wait for some time for the model to load in the backend server, i.e., until the* ```Application startup complete``` *message appears.*
 
 ## Screenshots
+![Image](https://github.com/user-attachments/assets/5e5e5c64-1752-4b3a-9d37-94e9ce1acdf5)
 
+![Image](https://github.com/user-attachments/assets/30df6cf1-54b1-470a-8e3b-304a91dbd217)
+
+![Image](https://github.com/user-attachments/assets/0256bee0-b2c7-4fec-bdd0-5754b5649701)
+
+![Image](https://github.com/user-attachments/assets/6ffa7dfb-a617-4678-85ef-cc5ad6bffcd6)
+
+![Image](https://github.com/user-attachments/assets/f2160d75-d1aa-4e4e-96b3-bab8d166eaea)
 
 
 ## Technologies Used
