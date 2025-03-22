@@ -138,6 +138,25 @@ def create_nlp_for_experience():
 
     return nlp
 
+async def get_experience_llm(text, minExpRequired):
+    query = """
+    Extract year of experience(only number like 2 or 2.5 or 0.5 or...) not like "2 years" also, from the following resume. No other nonsense like "here is your". In case of no experience return 0: 
+    """
+    
+    # Assuming `respond_query` is an async function that returns a string.
+    experience_LLM = await respond_query(text, query)
+    exp_year = float(experience_LLM)
+
+    # Calculate the similarity score for the applicant
+    if minExpRequired == 0:  # No experience required
+        print("Wrong way")
+        experience_score = 1.0
+    else:
+        experience_score = min(exp_year / float(minExpRequired), 1.0)
+    print("here: ")
+    print(exp_year)
+    print(experience_score)
+    return exp_year, experience_score
 
 
 # Function to extract experience (dates)
@@ -152,6 +171,8 @@ def get_experience(text, minExp):
     return experience_years, experience_score
 
 
+
+
 async def extractInformation(text, minExp, skillExtractionMethod):
     if (skillExtractionMethod == 'ner'):
         skills = get_skills_ner(text)  # Ensure await is used when calling async functions
@@ -162,7 +183,7 @@ async def extractInformation(text, minExp, skillExtractionMethod):
     major = get_major(text)
     email = get_email(text)
     phone_no = get_phone_number(text)
-    experience_years, experience_score = get_experience(text, minExp)
+    experience_years, experience_score = await get_experience_llm(text, minExp)
     
     # Combine all extracted information into a dictionary
     extracted_info = {
