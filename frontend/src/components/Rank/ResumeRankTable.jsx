@@ -55,13 +55,13 @@ const ResumeResultsTable = ({ results }) => {
                 ) : (
                   <>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {fileData.final_score}
+                      {fileData.final_score.toFixed(3)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {fileData.cosine_similarity_score}
+                      {fileData.cosine_similarity_score.toFixed(3)}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {fileData.skills_score}
+                      {fileData.skills_score.toFixed(3)}
                     </td>
                     {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {fileData.degree_score}
@@ -70,7 +70,7 @@ const ResumeResultsTable = ({ results }) => {
                       {fileData.education_score}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                      {fileData.exp_score}
+                      {fileData.exp_score.toFixed(2)}
                     </td>
                   </>
                 )}

@@ -17,7 +17,6 @@ const Features = () => {
     },
     {
       icon: <CheckCircle className="w-full h-full" />,
-      icon: <CheckCircle className="w-full h-full" />,
       title: "Candidate Matching",
       description: "Match candidates with job requirements using our intelligent scoring system."
     },
