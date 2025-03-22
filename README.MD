@@ -98,7 +98,7 @@ Flagsmith is integrated to facilitate flexible system configuration:
 - **Processing Capacity**:  Edit the number of resumes that can be processed by a system at a time
 - **Resume Summary**: Enable/disable the resume summarization feature
 - **Score Weights**: Assign weights to different scores to get final weighted score
-<br/>
+
 ![Image](https://github.com/user-attachments/assets/2f48db57-ed28-415e-a0e4-c11183feea17)
 
 
